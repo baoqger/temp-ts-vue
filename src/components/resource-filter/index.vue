@@ -38,7 +38,6 @@
         </ul>
       </Submenu>
     </Menu>
-    <Button @click="logFilters">Debug</Button>
   </div>
 </template>
 
@@ -152,6 +151,7 @@ export default Vue.extend({
         this.selectedResourceIndex = index;
         this.resetFilterCondition();
         this.$emit('resource-change', index);
+        this.logFilters();
       }
     },
     cancelItem(index) {
@@ -159,12 +159,15 @@ export default Vue.extend({
       this.selectedResourceIndex = -1;
       this.resetFilterCondition();
       this.$emit('resource-change', -1);
+      this.logFilters();
     },
     addFilterItem(indexCondi, indexItem) {
       this.currentFilterConditions[indexCondi].items[indexItem].selected = true;
+      this.logFilters();
     },
     cancelFilterItem(indexCondi, indexItem) {
       this.currentFilterConditions[indexCondi].items[indexItem].selected = false;
+      this.logFilters();
     },
     resetFilterCondition() {
       this.resourceData.forEach((eachResource) => {
@@ -178,13 +181,29 @@ export default Vue.extend({
     },
     logFilters() {
       console.log('Debug');
+      // this.currentFilterConditions.forEach((eachCondition) => {
+      //   eachCondition.items.forEach((eachItem) => {
+      //     if (eachItem.selected) {
+      //       console.log(eachItem.name);
+      //     }
+      //   });
+      // });
+      const filterObj = {
+        type: -1,
+      };
       this.currentFilterConditions.forEach((eachCondition) => {
+        const temp = [];
         eachCondition.items.forEach((eachItem) => {
           if (eachItem.selected) {
-            console.log(eachItem.name);
+            temp.push(eachItem.name);
           }
         });
+        if (temp.length > 0) {
+          filterObj[eachCondition.name] = temp;
+        }
       });
+      filterObj.type = this.selectedResourceIndex;
+      console.log('debugging...', filterObj);
     },
   },
 });

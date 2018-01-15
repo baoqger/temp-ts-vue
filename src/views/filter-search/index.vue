@@ -11,6 +11,10 @@
           <dataset-card v-if="resouce.type === 1" :info-obj="resouce"></dataset-card>
           <comment-card v-if="resouce.type === 2" :info-obj="resouce"></comment-card>
         </div>
+        <Page :total="100"
+          show-total
+          show-elevator
+          show-sizer></Page>
       </div>
   </div>
 </template>
