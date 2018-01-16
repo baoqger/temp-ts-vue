@@ -8,9 +8,17 @@
           <div class="comment-area-active-top">
             <img src="./u254.png" class="comment-area-active-top-img">
             <span>评论({{numberOfComment}})</span>
+            <img src="./u222.png" class="comment-area-active-top-close">
           </div>
           <div class="comment-area-active-list">
-            <comment-detail></comment-detail>
+            <comment-detail
+              v-for="(comment, index) in mockCommentList"
+              :key="index"
+              :commentObj="comment"></comment-detail>
+          </div>
+          <div class="comment-area-active-add">
+            <img src="./u256.png" style="vertical-align: top">
+            <Input style="width:200px" placeholder="为此数据集发表一条你的观点吧"></Input>
           </div>
         </div>
       </transition>
@@ -18,7 +26,16 @@
         <div class="comment-area-inactive"
           v-show="!isActive"
           @mouseover="openCommentArea">
-          inactive
+          <div class="comment-area-inactive-top">
+            <img src="./u111.png">
+            <img src="./u254.png" class="comment-area-inactive-top-img">
+          </div>
+          <div class="comment-area-inactive-list">
+            <img src="../comment-detail/u260.png"
+              class="comment-area-inactive-list-item"
+              v-for="(eachCom, index) in mockCommentList"
+              :key="index">
+          </div>
         </div>
       </transition>
     </div>
@@ -34,6 +51,18 @@ export default Vue.extend({
     return {
       isActive: false,
       numberOfComment: 2,
+      mockCommentList: [
+        {
+          name: '冠军',
+          content: '这数据集很满足我在交通银行项目中的标签加工。',
+          time: '2017年10月24日 10:24:00',
+        },
+        {
+          name: '晓红',
+          content: '这数据集中标签不符合规范，用户吐槽严重。',
+          time: '2017年10月23日 10:24:00',
+        },
+      ],
     };
   },
   methods: {
@@ -77,6 +106,17 @@ export default Vue.extend({
           vertical-align: top;
           margin-right: 15px;
         }
+
+        &-close {
+          vertical-align: top;
+          margin-left: 100px;
+          width: 35px;
+        }
+      }
+
+      &-add {
+        position: absolute;
+        bottom: 80px;
       }
     }
     &-inactive {
@@ -86,6 +126,21 @@ export default Vue.extend({
       background-color: #fff;
       width: 50px;
       border-left: 1px solid #ccc;
+
+      &-top {
+
+        &-img {
+          margin-top: 20px;
+          width: 30px;
+        }
+      }
+
+      &-list {
+        &-item {
+          width: 35px;
+          margin: 5px 0;
+        }
+      }
     }
 
     .open-enter-active, .open-leave-active {

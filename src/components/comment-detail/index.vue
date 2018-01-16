@@ -1,10 +1,10 @@
 <template>
-  <div class="comment-detail">
+  <div class="comment-detail clearfix">
     <img class="comment-detail-img" src="./u260.png">
     <div class="comment-detail-info">
-      <span class="comment-detail-info-name">姓名</span>
-      <span class="comment-detail-info-content">这数据集很满足我在交通银行项目中的标签加工.</span>
-      <p class="comment-detail-info-time">2017年10月24日 10:24:00</p>
+      <span class="comment-detail-info-name">{{commentObj.name}}</span>
+      <span class="comment-detail-info-content">{{commentObj.content}}</span>
+      <p class="comment-detail-info-time">{{commentObj.time}}</p>
     </div>
     <img class="comment-detail-set" src="./u300.png">
   </div>
@@ -14,25 +14,26 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-
+  props: {
+    commentObj: Object,
+  },
 });
 </script>
 <style lang="scss">
   .comment-detail {
-    position: relative;
+    margin-bottom: 15px;
 
     &-img {
-      position: absolute;
-      left: 0;
+      float: left;
       width: 30px;
-      margin-left: 10px;
+      margin: 0 5px;
     }
 
     &-info {
-      position: absolute;
+      float: left;
       left: 50px;
       width: 170px;
-      text-algin: left;
+      text-align: left;
 
       &-name {
         font-size: 14px;
@@ -42,7 +43,7 @@ export default Vue.extend({
       &-content {
         font-size: 12px;
         color: #ccc;
-        text-algin: left;
+        text-align: left;
       }
 
       &-time {
@@ -52,9 +53,15 @@ export default Vue.extend({
     }
 
     &-set {
-      position: absolute;
+      float: left;
       right: 0;
       width: 20px;
     }
+  }
+  .clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
   }
 </style>
