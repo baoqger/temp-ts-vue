@@ -19,10 +19,12 @@ export default Vue.extend({
 <style lang="scss">
   .detail-page {
     position: relative;
+    height: 1000px;
 
     .comment {
       position: absolute;
       right: 0;
+      height: 100%;
     }
   }
 </style>
